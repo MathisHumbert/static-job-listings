@@ -194,10 +194,10 @@ const singleJob = jobs
               <p>${location}</p>
             </div>
           </div>
+          </div>
           <div class="skills">
             ${singleSkills}
           </div>
-        </div>
       </article>
   `;
   })

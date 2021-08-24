@@ -11,6 +11,16 @@
       href="./images/favicon-32x32.png"
     />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spartan:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
 
     <title>Frontend Mentor | Job Listings</title>
 
@@ -26,70 +36,40 @@
   </head>
   <body>
     <!-- header -->
-    <header></header>
+    <header>
+      <img src="./images/bg-header-mobile.svg" alt="" />
+    </header>
     <!-- filter -->
-    <div class="filter"></div>
-    <!-- jobs list -->
-    <section class="jobs-list">
-      <!-- single item -->
-      <article class="single-job">
-        <div class="company-info">
-          <img src="./images/photosnap.svg" alt="" />
-          <div class="info">
-            <div class="header-info">
-              <p class="name">Photosnap</p>
-              <span class="new">New!</span>
-              <span class="featured">Featured</span>
+    <main>
+      <div class="container">
+        <div class="filter">
+          <div class="filter-skills">
+            <div class="single-skill">
+              <p>Frontend</p>
+              <span class="x"><i class="fas fa-times"></i></span>
             </div>
-            <p class="job-desc">Senior Frontend Developer</p>
-            <div class="footer-info">
-              <p>1d ago</p>
-              <p>Full Time</p>
-              <p>USA only</p>
+            <div class="single-skill">
+              <p>CSS</p>
+              <span class="x"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="single-skill">
+              <p>JavaScript</p>
+              <span class="x"><i class="fas fa-times"></i></span>
             </div>
           </div>
-          <div class="skills">
-            <button class="skill-btn">Frontend</button>
-            <button class="skill-btn">Senior</button>
-            <button class="skill-btn">HTML</button>
-            <button class="skill-btn">CSS</button>
-            <button class="skill-btn">JavaScript</button>
-          </div>
+          <p class="clear">Clear</p>
         </div>
-      </article>
-      <!-- single item -->
-      <article class="single-job">
-        <div class="company-info">
-          <img src="./images/manage.svg" alt="" />
-          <div class="info">
-            <div class="header-info">
-              <p class="name">PManage</p>
-              <span class="new">New!</span>
-              <span class="featured">Featured</span>
-            </div>
-            <p class="job-desc">Fullstack Developer</p>
-            <div class="footer-info">
-              <p>1d ago</p>
-              <p>Part Time</p>
-              <p>Remote</p>
-            </div>
-          </div>
-          <div class="skills">
-            <button class="skill-btn">Fullstack</button>
-            <button class="skill-btn">Midweight</button>
-            <button class="skill-btn">Python</button>
-            <button class="skill-btn">React</button>
-          </div>
-        </div>
-      </article>
-    </section>
+        <!-- jobs list -->
+        <section class="jobs-list"></section>
 
-    <!-- <div class="attribution">
+        <!-- <div class="attribution">
       Challenge by
       <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
         >Frontend Mentor</a
       >. Coded by <a href="#">Your Name Here</a>.
     </div> -->
+      </div>
+    </main>
 
     <script src="./app.js"></script>
   </body>

@@ -1,0 +1,156 @@
+/* global styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background: hsl(180, 52%, 96%);
+  font-size: 15px;
+  font-family: 'Spartan', sans-serif;
+}
+main {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+.container {
+  max-width: 375px;
+}
+
+/* header */
+header {
+  background: hsl(180, 29%, 50%);
+  z-index: -1;
+  height: fit-content;
+}
+header img {
+  width: 100%;
+  height: 150px;
+}
+
+/* filter */
+.filter {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-top: -30px;
+  border-radius: 5px;
+}
+.filter-skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.single-skill {
+  display: flex;
+}
+.single-skill p {
+  color: hsl(180, 29%, 50%);
+  background: hsl(180, 31%, 95%);
+  padding: 7px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.x {
+  padding: 7px;
+  background: hsl(180, 29%, 50%);
+  display: grid;
+  place-items: center;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.x i {
+  color: #fff;
+}
+
+.clear {
+  color: hsl(180, 8%, 52%);
+}
+
+/* jobs list */
+.jobs-list {
+  display: flex;
+  flex-flow: column;
+  gap: 3rem;
+  padding: 3rem 0;
+}
+
+.single-job {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 5px;
+  position: relative;
+}
+
+.single-job img {
+  width: 4rem;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+}
+
+.info {
+  margin-top: 2rem;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.name {
+  margin-right: 10px;
+  color: hsl(180, 29%, 50%);
+}
+.new,
+.featured {
+  background: hsl(180, 29%, 50%);
+  padding: 6px;
+  border-radius: 1rem;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.featured {
+  background: hsl(180, 14%, 20%);
+}
+
+.job-desc {
+  color: hsl(180, 14%, 20%);
+}
+
+.footer-info {
+  display: flex;
+  gap: 1rem;
+  color: hsl(180, 8%, 52%);
+  font-size: 14px;
+}
+
+.skills {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid hsl(180, 8%, 52%);
+}
+.skill-btn {
+  border: none;
+  color: hsl(180, 29%, 50%);
+  background: hsl(180, 31%, 95%);
+  padding: 7px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: fit-content;
+}
+
+/* finir le css
+center les élement avec bg
+media screen 
+revoir taille et couleur 
+grid les btn
+couleur gauche new 
+*/
