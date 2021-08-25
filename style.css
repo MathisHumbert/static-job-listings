@@ -136,15 +136,20 @@ header img {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid hsl(180, 8%, 52%);
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 10px;
+  justify-items: flex-start;
+  align-items: flex-start;
 }
 .skill-btn {
   border: none;
   color: hsl(180, 29%, 50%);
   background: hsl(180, 31%, 95%);
   padding: 7px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-radius: 5px;
   width: fit-content;
+  cursor: pointer;
 }
 
 /* finir le css
