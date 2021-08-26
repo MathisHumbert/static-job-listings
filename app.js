@@ -150,193 +150,22 @@ let jobs = [
     tools: ['React', 'Sass'],
   },
 ];
-let jobs2 = [
-  {
-    id: 1,
-    company: 'Photosnap',
-    logo: './images/photosnap.svg',
-    new: true,
-    featured: true,
-    position: 'Senior Frontend Developer',
-    role: 'Frontend',
-    level: 'Senior',
-    postedAt: '1d ago',
-    contract: 'Full Time',
-    location: 'USA Only',
-    languages: ['HTML', 'CSS', 'JavaScript'],
-    tools: [],
-  },
-  {
-    id: 2,
-    company: 'Manage',
-    logo: './images/manage.svg',
-    new: true,
-    featured: true,
-    position: 'Fullstack Developer',
-    role: 'Fullstack',
-    level: 'Midweight',
-    postedAt: '1d ago',
-    contract: 'Part Time',
-    location: 'Remote',
-    languages: ['Python'],
-    tools: ['React'],
-  },
-  {
-    id: 3,
-    company: 'Account',
-    logo: './images/account.svg',
-    new: true,
-    featured: false,
-    position: 'Junior Frontend Developer',
-    role: 'Frontend',
-    level: 'Junior',
-    postedAt: '2d ago',
-    contract: 'Part Time',
-    location: 'USA Only',
-    languages: ['JavaScript'],
-    tools: ['React', 'Sass'],
-  },
-  {
-    id: 4,
-    company: 'MyHome',
-    logo: './images/myhome.svg',
-    new: false,
-    featured: false,
-    position: 'Junior Frontend Developer',
-    role: 'Frontend',
-    level: 'Junior',
-    postedAt: '5d ago',
-    contract: 'Contract',
-    location: 'USA Only',
-    languages: ['CSS', 'JavaScript'],
-    tools: [],
-  },
-  {
-    id: 5,
-    company: 'Loop Studios',
-    logo: './images/loop-studios.svg',
-    new: false,
-    featured: false,
-    position: 'Software Engineer',
-    role: 'Fullstack',
-    level: 'Midweight',
-    postedAt: '1w ago',
-    contract: 'Full Time',
-    location: 'Worldwide',
-    languages: ['JavaScript'],
-    tools: ['Ruby', 'Sass'],
-  },
-  {
-    id: 6,
-    company: 'FaceIt',
-    logo: './images/faceit.svg',
-    new: false,
-    featured: false,
-    position: 'Junior Backend Developer',
-    role: 'Backend',
-    level: 'Junior',
-    postedAt: '2w ago',
-    contract: 'Full Time',
-    location: 'UK Only',
-    languages: ['Ruby'],
-    tools: ['RoR'],
-  },
-  {
-    id: 7,
-    company: 'Shortly',
-    logo: './images/shortly.svg',
-    new: false,
-    featured: false,
-    position: 'Junior Developer',
-    role: 'Frontend',
-    level: 'Junior',
-    postedAt: '2w ago',
-    contract: 'Full Time',
-    location: 'Worldwide',
-    languages: ['HTML', 'JavaScript'],
-    tools: ['Sass'],
-  },
-  {
-    id: 8,
-    company: 'Insure',
-    logo: './images/insure.svg',
-    new: false,
-    featured: false,
-    position: 'Junior Frontend Developer',
-    role: 'Frontend',
-    level: 'Junior',
-    postedAt: '2w ago',
-    contract: 'Full Time',
-    location: 'USA Only',
-    languages: ['JavaScript'],
-    tools: ['Vue', 'Sass'],
-  },
-  {
-    id: 9,
-    company: 'Eyecam Co.',
-    logo: './images/eyecam-co.svg',
-    new: false,
-    featured: false,
-    position: 'Full Stack Engineer',
-    role: 'Fullstack',
-    level: 'Midweight',
-    postedAt: '3w ago',
-    contract: 'Full Time',
-    location: 'Worldwide',
-    languages: ['JavaScript', 'Python'],
-    tools: ['Django'],
-  },
-  {
-    id: 10,
-    company: 'The Air Filter Company',
-    logo: './images/the-air-filter-company.svg',
-    new: false,
-    featured: false,
-    position: 'Front-end Dev',
-    role: 'Frontend',
-    level: 'Junior',
-    postedAt: '1mo ago',
-    contract: 'Part Time',
-    location: 'Worldwide',
-    languages: ['JavaScript'],
-    tools: ['React', 'Sass'],
-  },
-];
-
-// refaire ca
-let roleArr = [];
-let levelArr = [];
-let languagesArr = [];
-let toolsArr = [];
-for (let i of jobs) {
-  languagesArr.push(...i.languages);
-  toolsArr.push(...i.tools);
-  roleArr.push(i.role);
-  levelArr.push(i.level);
-}
-console.log(roleArr);
 
 // get elements
 const jobList = document.querySelector('.jobs-list');
-const filrerList = document.querySelector('.filter-skills');
+const filterList = document.querySelector('.filter-skills');
 
 // transforming unique skill/tool to skill/tool btn
-let skills = jobs.map((job) => job.languages);
-let tools = jobs.map((job) => job.tools);
-for (let i = 0; i < skills.length; i++) {
-  for (let x = 0; x < skills[i].length; x++) {
-    skills[i][
-      x
-    ] = `<button class="skill-btn" data-name="${skills[i][x]}">${skills[i][x]}</button>`;
-  }
-}
-for (let i = 0; i < tools.length; i++) {
-  for (let x = 0; x < tools[i].length; x++) {
-    tools[i][
-      x
-    ] = `<button class="skill-btn" data-name="${tools[i][x]}">${tools[i][x]}</button>`;
-  }
-}
+let skills = jobs
+  .map((job) => job.languages)
+  .map((job) =>
+    job.map((j) => `<button class="skill-btn" data-name="${j}">${j}</button>`)
+  );
+let tools = jobs
+  .map((job) => job.tools)
+  .map((job) =>
+    job.map((j) => `<button class="skill-btn" data-name="${j}">${j}</button>`)
+  );
 
 // mapping jobs array
 function displayJobListing(j) {
@@ -354,6 +183,7 @@ function displayJobListing(j) {
         job.role,
         job.level,
       ];
+
       // unique btn
       const singleSkills = skills[index];
       const singleTools = tools[index];
@@ -395,45 +225,79 @@ function displayJobListing(j) {
   jobList.innerHTML = singleJob;
 }
 
-// push btn value
+// filter arr
 let jobFilterArr = [];
-function displayFilter() {
-  // get and push value
+
+// get and push value to filter arr
+function pushFilter() {
   const value = this.dataset.name;
   if (!jobFilterArr.includes(value)) {
     jobFilterArr.push(value);
   }
-  // displayBtn la faire en fonction
+}
+
+// display jobFilterArr in filter-skills
+function displayFilter() {
   if (jobFilterArr.length !== 0) {
     const filterJobs = jobFilterArr
       .map((job) => {
         return `
       <div class="single-skill">
         <p>${job}</p>
-        <span class="x" data-name="${job}"><i class="fas fa-times"></i></span>
+        <span class="delete" data-name="${job}"><i class="fas fa-times"></i></span>
       </div>
       `;
       })
       .join('');
-    filrerList.innerHTML = filterJobs;
+    filterList.innerHTML = filterJobs;
   }
-  // clear
-  // remove unique
-  displayAllJobs(jobFilterArr);
+}
+// delete only the btn selected
+function clearUniqueBtn() {
+  const deleteBtn = document.querySelectorAll('.delete');
+  deleteBtn.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      let target = e.currentTarget.parentElement;
+      let value = e.currentTarget.dataset.name;
+      jobFilterArr.splice(jobFilterArr.indexOf(value), 1);
+      filterList.removeChild(target);
+    });
+  });
 }
 
-function displayAllJobs(arr) {
-  console.log(arr);
+// clear
+// remove unique
+
+// refaire ca
+// let roleArr = [];
+// let levelArr = [];
+// let languagesArr = [];
+// let toolsArr = [];
+// for (let i of jobs) {
+//   languagesArr.push(...i.languages);
+//   toolsArr.push(...i.tools);
+//   roleArr.push(i.role);
+//   levelArr.push(i.level);
+// }
+// console.log(roleArr);
+
+// display only jobs included in jobFilterArr
+// check si role lang tools et level a une des ces valeurs dans l'arr est check si chaque job2 a une de ses valeur est affiché avec un filter
+function displayJobFilterArr() {
+  // console.log(jobFilterArr);
+  // console.log(jobs);
 }
 
 // display all
 window.addEventListener('DOMContentLoaded', displayJobListing(jobs));
 // get all btn
-const btns = document.querySelectorAll('.skill-btn');
-// display btn and update all jobs
-btns.forEach((btn) => {
-  btn.addEventListener('click', displayFilter);
-});
+const jobsBtns = document.querySelectorAll('.skill-btn');
 
-// style css
-// check si role lang tools et level a une des ces valeurs dans l'arr est check si chaque job2 a une de ses valeur est affiché avec un filter
+// btn event listener
+jobsBtns.forEach((btn) => {
+  btn.addEventListener('click', pushFilter);
+  btn.addEventListener('click', displayFilter);
+  btn.addEventListener('click', displayFilter);
+  btn.addEventListener('click', displayJobFilterArr);
+  btn.addEventListener('click', clearUniqueBtn);
+});
