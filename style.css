@@ -16,6 +16,7 @@ main {
 }
 .container {
   max-width: 375px;
+  width: 100%;
 }
 
 /* header */
@@ -27,21 +28,29 @@ header {
 header img {
   width: 100%;
   height: 150px;
+  object-fit: cover;
+}
+.mobile {
+  display: block;
+}
+.desktop {
+  display: none;
 }
 
 /* filter */
 .filter {
   background: #fff;
-  display: flex;
+  display: none;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem;
-  margin-top: -30px;
+  margin-top: -31.5px;
   border-radius: 5px;
 }
 .filter-skills {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .single-skill {
@@ -54,6 +63,7 @@ header img {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
+
 .delete {
   padding: 7px;
   background: hsl(180, 29%, 50%);
@@ -61,13 +71,24 @@ header img {
   place-items: center;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s linear;
 }
-.x i {
+.delete:hover {
+  background: #222;
+}
+.delete i {
   color: #fff;
 }
 
 .clear {
   color: hsl(180, 8%, 52%);
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+.clear:hover {
+  color: hsl(180, 29%, 50%);
+  text-decoration: underline;
 }
 
 /* jobs list */
@@ -80,9 +101,22 @@ header img {
 
 .single-job {
   background: #fff;
-  padding: 1rem;
+  padding: 2rem;
+  padding-bottom: 24px;
   border-radius: 5px;
   position: relative;
+}
+.single-job.new-article::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 4px;
+  background: hsl(180, 29%, 50%);
+  z-index: 3;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .single-job img {
@@ -96,7 +130,7 @@ header img {
   margin-top: 2rem;
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .header-info {
@@ -111,45 +145,61 @@ header img {
 .new,
 .featured {
   background: hsl(180, 29%, 50%);
-  padding: 6px;
+  padding: 8px;
   border-radius: 1rem;
   color: #fff;
   text-transform: uppercase;
   font-size: 12px;
+  display: grid;
 }
 .featured {
   background: hsl(180, 14%, 20%);
 }
-
 .job-desc {
   color: hsl(180, 14%, 20%);
+  font-weight: 700;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  font-size: 16px;
+}
+.job-desc:hover {
+  color: hsl(180, 29%, 50%);
 }
 
 .footer-info {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 10px;
   color: hsl(180, 8%, 52%);
   font-size: 14px;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid hsl(180, 8%, 52%);
+}
+.circle {
+  font-size: 5px;
 }
 
 .skills {
-  margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid hsl(180, 8%, 52%);
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 10px;
-  justify-items: flex-start;
-  align-items: flex-start;
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 .skill-btn {
   border: none;
   color: hsl(180, 29%, 50%);
   background: hsl(180, 31%, 95%);
-  padding: 7px;
+  padding: 10px;
   border-radius: 5px;
-  width: fit-content;
+  font-weight: 700;
+  font-family: 'Spartan', sans-serif;
   cursor: pointer;
+  transition: all 0.3s linear;
+}
+.skill-btn:hover {
+  background-color: hsl(180, 29%, 50%);
+  color: #fff;
 }
 
 /* finir le css
@@ -159,3 +209,45 @@ revoir taille et couleur
 grid les btn
 couleur gauche new 
 */
+
+/* responsive design */
+@media screen and (min-width: 1440px) {
+  .container {
+    max-width: 1220px;
+  }
+  .single-job {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem;
+  }
+  .single-job img {
+    width: 6rem;
+    position: inherit;
+    top: auto;
+    transform: translateY(0);
+  }
+  .top-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .info {
+    margin-top: 0;
+  }
+  .footer-info {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .skills {
+    padding-top: 0;
+    padding-top: 0;
+    max-width: 100%;
+  }
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  }
+}

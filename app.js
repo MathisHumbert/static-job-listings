@@ -154,6 +154,8 @@ let jobs = [
 // get elements
 const jobList = document.querySelector('.jobs-list');
 const filterList = document.querySelector('.filter-skills');
+const filterParent = document.querySelector('.filter');
+const clearBtn = document.querySelector('.clear');
 
 // transforming unique skill/tool to skill/tool btn
 let skills = jobs
@@ -190,16 +192,17 @@ function displayJobListing(j) {
       const jobBtn = `<button class="skill-btn" data-name="${role}">${role}</button>`;
       const positionBtn = `<button class="skill-btn" data-name="${level}">${level}</button>`;
       const allBtn = [
-        ...singleSkills,
-        ...singleTools,
         jobBtn,
         positionBtn,
+        ...singleSkills,
+        ...singleTools,
       ].join('');
 
       // html
       return `
-  <article class="single-job">
+  <article class="single-job ${job.new ? 'new-article' : ''}">
         <div class="company-info">
+        <div class="top-info">
           <img src="${img}" alt="" />
           <div class="info">
             <div class="header-info">
@@ -210,9 +213,12 @@ function displayJobListing(j) {
             <p class="job-desc">${position}</p>
             <div class="footer-info">
               <p>${posted}</p>
+              <i class="fas fa-circle circle"></i>
               <p>${contract}</p>
+              <i class="fas fa-circle circle"></i>
               <p>${location}</p>
             </div>
+          </div>
           </div>
           </div>
           <div class="skills">
@@ -251,7 +257,9 @@ function displayFilter() {
       .join('');
     filterList.innerHTML = filterJobs;
   }
+  handleFilterDisplay();
 }
+
 // delete only the btn selected
 function clearUniqueBtn() {
   const deleteBtn = document.querySelectorAll('.delete');
@@ -261,14 +269,45 @@ function clearUniqueBtn() {
       let value = e.currentTarget.dataset.name;
       jobFilterArr.splice(jobFilterArr.indexOf(value), 1);
       filterList.removeChild(target);
+
+      handleFilterDisplay();
     });
   });
 }
 
-// clear
-// remove unique
+// clear all
+function clearAll() {
+  while (filterList.firstChild) {
+    filterList.removeChild(filterList.firstChild);
+  }
+  jobFilterArr = [];
+  handleFilterDisplay();
+  return jobFilterArr;
+}
+
+function handleFilterDisplay() {
+  if (jobFilterArr.length !== 0) {
+    filterParent.style.display = 'flex';
+  } else {
+    filterParent.style.display = 'none';
+  }
+}
 
 // refaire ca
+
+let roleArr = [];
+for (let i of jobs) {
+  if (!roleArr.includes(i.role)) {
+    roleArr.push(i.role);
+  }
+}
+let levelArr = [];
+for (let i of jobs) {
+  if (!roleArr.includes(i.role)) {
+    roleArr.push(i.role);
+  }
+}
+
 // let roleArr = [];
 // let levelArr = [];
 // let languagesArr = [];
@@ -301,3 +340,4 @@ jobsBtns.forEach((btn) => {
   btn.addEventListener('click', displayJobFilterArr);
   btn.addEventListener('click', clearUniqueBtn);
 });
+clearBtn.addEventListener('click', clearAll);
