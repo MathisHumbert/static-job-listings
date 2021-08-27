@@ -157,21 +157,21 @@ const filterList = document.querySelector('.filter-skills');
 const filterParent = document.querySelector('.filter');
 const clearBtn = document.querySelector('.clear');
 
-// transforming unique skill/tool to skill/tool btn
-let skills = jobs
-  .map((job) => job.languages)
-  .map((job) =>
-    job.map((j) => `<button class="skill-btn" data-name="${j}">${j}</button>`)
-  );
-let tools = jobs
-  .map((job) => job.tools)
-  .map((job) =>
-    job.map((j) => `<button class="skill-btn" data-name="${j}">${j}</button>`)
-  );
-
 // mapping jobs array
-function displayJobListing(j) {
-  const singleJob = j
+function displayJobListing(job) {
+  // transforming unique skill/tool to skill/tool btn
+  let skills = job
+    .map((job) => job.languages)
+    .map((job) =>
+      job.map((j) => `<button class="skill-btn" data-name="${j}">${j}</button>`)
+    );
+  let tools = job
+    .map((job) => job.tools)
+    .map((job) =>
+      job.map((j) => `<button class="skill-btn" data-name="${j}">${j}</button>`)
+    );
+
+  const singleJob = job
     .map((job, index) => {
       // destrucutring
       skills[index];
@@ -293,40 +293,6 @@ function handleFilterDisplay() {
   }
 }
 
-// refaire ca
-
-let roleArr = [];
-for (let i of jobs) {
-  if (!roleArr.includes(i.role)) {
-    roleArr.push(i.role);
-  }
-}
-let levelArr = [];
-for (let i of jobs) {
-  if (!roleArr.includes(i.role)) {
-    roleArr.push(i.role);
-  }
-}
-
-// let roleArr = [];
-// let levelArr = [];
-// let languagesArr = [];
-// let toolsArr = [];
-// for (let i of jobs) {
-//   languagesArr.push(...i.languages);
-//   toolsArr.push(...i.tools);
-//   roleArr.push(i.role);
-//   levelArr.push(i.level);
-// }
-// console.log(roleArr);
-
-// display only jobs included in jobFilterArr
-// check si role lang tools et level a une des ces valeurs dans l'arr est check si chaque job2 a une de ses valeur est affiché avec un filter
-function displayJobFilterArr() {
-  // console.log(jobFilterArr);
-  // console.log(jobs);
-}
-
 // display all
 window.addEventListener('DOMContentLoaded', displayJobListing(jobs));
 // get all btn
@@ -337,7 +303,6 @@ jobsBtns.forEach((btn) => {
   btn.addEventListener('click', pushFilter);
   btn.addEventListener('click', displayFilter);
   btn.addEventListener('click', displayFilter);
-  btn.addEventListener('click', displayJobFilterArr);
   btn.addEventListener('click', clearUniqueBtn);
 });
 clearBtn.addEventListener('click', clearAll);
