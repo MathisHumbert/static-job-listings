@@ -67,8 +67,7 @@ header img {
 .delete {
   padding: 7px;
   background: hsl(180, 29%, 50%);
-  display: grid;
-  place-items: center;
+  color: #fff;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   cursor: pointer;
@@ -76,9 +75,6 @@ header img {
 }
 .delete:hover {
   background: #222;
-}
-.delete i {
-  color: #fff;
 }
 
 .clear {

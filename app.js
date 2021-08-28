@@ -153,13 +153,12 @@ let jobs = [
 
 // filter arr
 let jobFilterArr = [];
-// newjobs start
-let newJobs = null;
 
 // get elements
 const jobList = document.querySelector('.jobs-list');
 const filterParent = document.querySelector('.filter');
 const clearBtn = document.querySelector('.clear');
+const filterList = document.querySelector('.filter-skills');
 
 // mapping jobs array
 function displayJobListing(jobArr) {
@@ -236,26 +235,46 @@ function displayJobListing(jobArr) {
 
   // get elements
   const skillsBtn = document.querySelectorAll('.skill-btn');
-  let filterList = document.querySelector('.filter-skills');
 
-  // skillsBtn event
+  // skillsBtn events
   skillsBtn.forEach((skillBtn) => {
     skillBtn.addEventListener('click', (e) => {
       pushFilter(e);
-      displayFilter(filterList);
-      // filterJobsHtml();
+      displayFilter();
+      filterJobsHtmlAdd();
     });
-  });
-
-  // deleteBtn event
-  clearBtn.addEventListener('click', () => {
-    clearAll(filterList);
-    displayJobListing(jobs);
-    return (jobFilterArr = []);
   });
 }
 
-// functions
+//
+// EVENTS
+//
+
+// deleteBtn event
+filterList.addEventListener('click', (e) => {
+  console.log(filterList);
+  if (e.target.classList.contains('fas')) {
+    let target = e.target.parentElement;
+    let value = e.target.dataset.name;
+    filterList.removeChild(target);
+    jobFilterArr.splice(jobFilterArr.indexOf(value), 1);
+    handleFilterDisplay();
+    filterJobsHtmlDelete();
+  } else {
+    return;
+  }
+});
+
+// clearAll event
+clearBtn.addEventListener('click', () => {
+  clearAll();
+  displayJobListing(jobs);
+  return (jobFilterArr = []);
+});
+
+//
+// ALL OF THE FUNCTIONS
+//
 
 // get and push value to filter arr
 function pushFilter(e) {
@@ -266,19 +285,19 @@ function pushFilter(e) {
 }
 
 // display jobFilterArr in filter-skills
-function displayFilter(list) {
+function displayFilter() {
   if (jobFilterArr.length !== 0) {
     const filterJobs = jobFilterArr
       .map((job) => {
         return `
       <div class="single-skill">
         <p>${job}</p>
-        <span class="delete" data-name="${job}"><i class="fas fa-times"></i></span>
+        <i class="fas fa-times delete" data-name="${job}"></i>
       </div>
       `;
       })
       .join('');
-    list.innerHTML = filterJobs;
+    filterList.innerHTML = filterJobs;
   }
   handleFilterDisplay(jobFilterArr);
 }
@@ -293,16 +312,20 @@ function handleFilterDisplay() {
 }
 
 // clear all
-function clearAll(list) {
-  while (list.firstChild) {
-    list.removeChild(list.firstChild);
+function clearAll() {
+  while (filterList.firstChild) {
+    filterList.removeChild(filterList.firstChild);
   }
   jobFilterArr = [];
   handleFilterDisplay(jobFilterArr);
 }
 
-// filter the html
-function filterJobsHtml() {
+// newjobs start
+let newJobs = null;
+let flag = true;
+// filter the html for the skills added
+function filterJobsHtmlAdd() {
+  console.log(newJobs);
   for (let skill of jobFilterArr) {
     newJobs = (newJobs || jobs).filter((job) => {
       return (
@@ -313,11 +336,36 @@ function filterJobsHtml() {
       );
     });
   }
+  console.log(newJobs);
+  displayJobListing(newJobs);
+  return (flag = false);
+}
 
-  return displayJobListing(newJobs);
+// filter the html for the skills deleted
+function filterJobsHtmlDelete() {
+  console.log(flag);
+  if (jobFilterArr.length !== 0) {
+    for (let skill of jobFilterArr) {
+      newJobs2 = jobs.filter((job) => {
+        return (
+          job.languages.includes(skill) ||
+          job.tools.includes(skill) ||
+          job.role === skill ||
+          job.level === skill
+        );
+      });
+    }
+    displayJobListing(newJobs2);
+
+    return (newJobs = newJobs2);
+  } else {
+    newJobs = null;
+    console.log(newJobs);
+    displayJobListing(jobs);
+
+    return newJobs;
+  }
 }
 
 // display all at the loading
 window.addEventListener('DOMContentLoaded', displayJobListing(jobs));
-
-// filter jobs selon un array de valeur et pour chaque valeur de l'array utiliser some pour savoir si un de ces key a la valeur en question
