@@ -151,9 +151,13 @@ let jobs = [
   },
 ];
 
+// filter arr
+let jobFilterArr = [];
+// newjobs start
+let newJobs = null;
+
 // get elements
 const jobList = document.querySelector('.jobs-list');
-const filterList = document.querySelector('.filter-skills');
 const filterParent = document.querySelector('.filter');
 const clearBtn = document.querySelector('.clear');
 
@@ -230,45 +234,23 @@ function displayJobListing(jobArr) {
     .join('');
   jobList.innerHTML = jobHtml;
 
+  // get elements
   const skillsBtn = document.querySelectorAll('.skill-btn');
-  console.log(skillsBtn);
-
-  // filter arr
-  let jobFilterArr = [];
+  let filterList = document.querySelector('.filter-skills');
 
   // skillsBtn event
   skillsBtn.forEach((skillBtn) => {
     skillBtn.addEventListener('click', (e) => {
-      pushFilter(e, jobFilterArr);
-      console.log(jobFilterArr);
-      displayFilter(jobFilterArr);
-      // const deleteBtn = document.querySelectorAll('.delete');
-      // console.log(deleteBtn);
+      pushFilter(e);
+      displayFilter(filterList);
+      // filterJobsHtml();
     });
   });
 
   // deleteBtn event
-  filterList.addEventListener('click', (e) => {
-    if (e.target.classList.contains('fas')) {
-      let target = e.target.parentElement.parentElement;
-      let value = e.target.parentElement.dataset.name;
-      console.log(target, value);
-      jobFilterArr.splice(jobFilterArr.indexOf(value), 1);
-      filterList.removeChild(target);
-      handleFilterDisplay(jobFilterArr);
-    }
-    if (e.target.classList.contains('delete')) {
-      let target = e.target.parentElement;
-      let value = e.target.dataset.name;
-      console.log(target, value);
-      jobFilterArr.splice(jobFilterArr.indexOf(value), 1);
-      filterList.removeChild(target);
-      handleFilterDisplay(jobFilterArr);
-    }
-  });
-
   clearBtn.addEventListener('click', () => {
-    clearAll(jobFilterArr);
+    clearAll(filterList);
+    displayJobListing(jobs);
     return (jobFilterArr = []);
   });
 }
@@ -276,18 +258,17 @@ function displayJobListing(jobArr) {
 // functions
 
 // get and push value to filter arr
-function pushFilter(e, arr) {
+function pushFilter(e) {
   const value = e.target.dataset.name;
-  if (!arr.includes(value)) {
-    arr.push(value);
+  if (!jobFilterArr.includes(value)) {
+    jobFilterArr.push(value);
   }
 }
 
 // display jobFilterArr in filter-skills
-function displayFilter(arr) {
-  console.log(arr);
-  if (arr.length !== 0) {
-    const filterJobs = arr
+function displayFilter(list) {
+  if (jobFilterArr.length !== 0) {
+    const filterJobs = jobFilterArr
       .map((job) => {
         return `
       <div class="single-skill">
@@ -297,15 +278,14 @@ function displayFilter(arr) {
       `;
       })
       .join('');
-    filterList.innerHTML = filterJobs;
+    list.innerHTML = filterJobs;
   }
-  handleFilterDisplay(arr);
+  handleFilterDisplay(jobFilterArr);
 }
 
 // handle the display of filter
-function handleFilterDisplay(arr) {
-  console.log(arr);
-  if (arr.length !== 0) {
+function handleFilterDisplay() {
+  if (jobFilterArr.length !== 0) {
     filterParent.style.display = 'flex';
   } else {
     filterParent.style.display = 'none';
@@ -313,12 +293,28 @@ function handleFilterDisplay(arr) {
 }
 
 // clear all
-function clearAll(arr) {
-  while (filterList.firstChild) {
-    filterList.removeChild(filterList.firstChild);
+function clearAll(list) {
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
   }
-  arr = [];
-  handleFilterDisplay(arr);
+  jobFilterArr = [];
+  handleFilterDisplay(jobFilterArr);
+}
+
+// filter the html
+function filterJobsHtml() {
+  for (let skill of jobFilterArr) {
+    newJobs = (newJobs || jobs).filter((job) => {
+      return (
+        job.languages.includes(skill) ||
+        job.tools.includes(skill) ||
+        job.role === skill ||
+        job.level === skill
+      );
+    });
+  }
+
+  return displayJobListing(newJobs);
 }
 
 // display all at the loading
