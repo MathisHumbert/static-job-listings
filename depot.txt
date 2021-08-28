@@ -34,6 +34,7 @@ for (let i of jobs) {
 // faire réussir a cliquer surement const les btn lors de leur création
 
 
+
 let newJobs = null;
 function displayFilterJobs() {
   console.log(this.dataset.name);
@@ -60,3 +61,5 @@ function displayFilterJobs() {
   }
   return displayJobListing(newJobs);
 }
+
+

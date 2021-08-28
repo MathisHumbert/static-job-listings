@@ -158,23 +158,23 @@ const filterParent = document.querySelector('.filter');
 const clearBtn = document.querySelector('.clear');
 
 // mapping jobs array
-function displayJobListing(job) {
+function displayJobListing(jobArr) {
   // transforming unique skill/tool to skill/tool btn
-  let skills = job
+  let languages = jobArr
     .map((job) => job.languages)
     .map((job) =>
       job.map((j) => `<button class="skill-btn" data-name="${j}">${j}</button>`)
     );
-  let tools = job
+  let tools = jobArr
     .map((job) => job.tools)
     .map((job) =>
       job.map((j) => `<button class="skill-btn" data-name="${j}">${j}</button>`)
     );
 
-  const singleJob = job
+  // creating the html
+  const jobHtml = jobArr
     .map((job, index) => {
       // destrucutring
-      skills[index];
       const [img, name, position, posted, contract, location, role, level] = [
         job.logo,
         job.company,
@@ -187,18 +187,18 @@ function displayJobListing(job) {
       ];
 
       // unique btn
-      const singleSkills = skills[index];
+      const singleLanguages = languages[index];
       const singleTools = tools[index];
       const jobBtn = `<button class="skill-btn" data-name="${role}">${role}</button>`;
       const positionBtn = `<button class="skill-btn" data-name="${level}">${level}</button>`;
       const allBtn = [
         jobBtn,
         positionBtn,
-        ...singleSkills,
+        ...singleLanguages,
         ...singleTools,
       ].join('');
 
-      // html
+      // actual html
       return `
   <article class="single-job ${job.new ? 'new-article' : ''}">
         <div class="company-info">
@@ -228,24 +228,66 @@ function displayJobListing(job) {
   `;
     })
     .join('');
-  jobList.innerHTML = singleJob;
+  jobList.innerHTML = jobHtml;
+
+  const skillsBtn = document.querySelectorAll('.skill-btn');
+  console.log(skillsBtn);
+
+  // filter arr
+  let jobFilterArr = [];
+
+  // skillsBtn event
+  skillsBtn.forEach((skillBtn) => {
+    skillBtn.addEventListener('click', (e) => {
+      pushFilter(e, jobFilterArr);
+      console.log(jobFilterArr);
+      displayFilter(jobFilterArr);
+      // const deleteBtn = document.querySelectorAll('.delete');
+      // console.log(deleteBtn);
+    });
+  });
+
+  // deleteBtn event
+  filterList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('fas')) {
+      let target = e.target.parentElement.parentElement;
+      let value = e.target.parentElement.dataset.name;
+      console.log(target, value);
+      jobFilterArr.splice(jobFilterArr.indexOf(value), 1);
+      filterList.removeChild(target);
+      handleFilterDisplay(jobFilterArr);
+    }
+    if (e.target.classList.contains('delete')) {
+      let target = e.target.parentElement;
+      let value = e.target.dataset.name;
+      console.log(target, value);
+      jobFilterArr.splice(jobFilterArr.indexOf(value), 1);
+      filterList.removeChild(target);
+      handleFilterDisplay(jobFilterArr);
+    }
+  });
+
+  clearBtn.addEventListener('click', () => {
+    clearAll(jobFilterArr);
+    return (jobFilterArr = []);
+  });
 }
 
-// filter arr
-let jobFilterArr = [];
+// functions
 
 // get and push value to filter arr
-function pushFilter() {
-  const value = this.dataset.name;
-  if (!jobFilterArr.includes(value)) {
-    jobFilterArr.push(value);
+function pushFilter(e, arr) {
+  const value = e.target.dataset.name;
+  if (!arr.includes(value)) {
+    arr.push(value);
   }
 }
 
 // display jobFilterArr in filter-skills
-function displayFilter() {
-  if (jobFilterArr.length !== 0) {
-    const filterJobs = jobFilterArr
+function displayFilter(arr) {
+  console.log(arr);
+  if (arr.length !== 0) {
+    const filterJobs = arr
       .map((job) => {
         return `
       <div class="single-skill">
@@ -257,52 +299,29 @@ function displayFilter() {
       .join('');
     filterList.innerHTML = filterJobs;
   }
-  handleFilterDisplay();
+  handleFilterDisplay(arr);
 }
 
-// delete only the btn selected
-function clearUniqueBtn() {
-  const deleteBtn = document.querySelectorAll('.delete');
-  deleteBtn.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      let target = e.currentTarget.parentElement;
-      let value = e.currentTarget.dataset.name;
-      jobFilterArr.splice(jobFilterArr.indexOf(value), 1);
-      filterList.removeChild(target);
-
-      handleFilterDisplay();
-    });
-  });
-}
-
-// clear all
-function clearAll() {
-  while (filterList.firstChild) {
-    filterList.removeChild(filterList.firstChild);
-  }
-  jobFilterArr = [];
-  handleFilterDisplay();
-  return jobFilterArr;
-}
-
-function handleFilterDisplay() {
-  if (jobFilterArr.length !== 0) {
+// handle the display of filter
+function handleFilterDisplay(arr) {
+  console.log(arr);
+  if (arr.length !== 0) {
     filterParent.style.display = 'flex';
   } else {
     filterParent.style.display = 'none';
   }
 }
 
-// display all
-window.addEventListener('DOMContentLoaded', displayJobListing(jobs));
-// get all btn
-const jobsBtns = document.querySelectorAll('.skill-btn');
+// clear all
+function clearAll(arr) {
+  while (filterList.firstChild) {
+    filterList.removeChild(filterList.firstChild);
+  }
+  arr = [];
+  handleFilterDisplay(arr);
+}
 
-// btn event listener
-jobsBtns.forEach((btn) => {
-  btn.addEventListener('click', pushFilter);
-  btn.addEventListener('click', displayFilter);
-  btn.addEventListener('click', displayFilter);
-  btn.addEventListener('click', clearUniqueBtn);
-});
-clearBtn.addEventListener('click', clearAll);
+// display all at the loading
+window.addEventListener('DOMContentLoaded', displayJobListing(jobs));
+
+// filter jobs selon un array de valeur et pour chaque valeur de l'array utiliser some pour savoir si un de ces key a la valeur en question
