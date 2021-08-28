@@ -322,7 +322,7 @@ function clearAll() {
 
 // newjobs start
 let newJobs = null;
-let flag = true;
+
 // filter the html for the skills added
 function filterJobsHtmlAdd() {
   console.log(newJobs);
@@ -343,10 +343,10 @@ function filterJobsHtmlAdd() {
 
 // filter the html for the skills deleted
 function filterJobsHtmlDelete() {
-  console.log(flag);
+  newJobs = null;
   if (jobFilterArr.length !== 0) {
     for (let skill of jobFilterArr) {
-      newJobs2 = jobs.filter((job) => {
+      newJobs = jobs.filter((job) => {
         return (
           job.languages.includes(skill) ||
           job.tools.includes(skill) ||
@@ -355,14 +355,12 @@ function filterJobsHtmlDelete() {
         );
       });
     }
-    displayJobListing(newJobs2);
-
-    return (newJobs = newJobs2);
+    displayJobListing(newJobs);
+    return newJobs;
   } else {
     newJobs = null;
     console.log(newJobs);
     displayJobListing(jobs);
-
     return newJobs;
   }
 }
