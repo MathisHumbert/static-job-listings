@@ -198,14 +198,6 @@ header img {
   color: #fff;
 }
 
-/* finir le css
-center les élement avec bg
-media screen 
-revoir taille et couleur 
-grid les btn
-couleur gauche new 
-*/
-
 /* responsive design */
 @media screen and (min-width: 1440px) {
   .container {
@@ -246,4 +238,14 @@ couleur gauche new
   .desktop {
     display: block;
   }
+}
+
+/*  */
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  padding-bottom: 3rem;
+}
+.attribution a {
+  color: hsl(180, 29%, 50%);
 }
